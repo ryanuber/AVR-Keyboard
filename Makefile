@@ -157,24 +157,24 @@ end:
 	find . -name '*.i' -delete
 	rm -rf .dep
 
-clean:
+clean: end
 	@echo
 	@echo Cleaning everything:
-	find . -name '*.cof' -delete
-	find . -name '*.elf' -delete
-	find . -name '*.map' -delete
-	find . -name '*.sym' -delete
-	find . -name '*.lss' -delete
-	find . -name '*.o' -delete
-	find . -name '*.lst' -delete
-	find . -name '*.s' -delete
-	find . -name '*.d' -delete
-	find . -name '*.i' -delete
-	find . -name '*.eep' -delete
-	find . -name '*.hex' -delete
-	rm -rf .dep
+	find . -not -name 'firmwares/*' -name '*.eep' -delete
+	find . -not -name 'firmwares/*' -name '*.hex' -delete
+
+show_layouts:
+	find . -name board.h | awk -F/ '{print $$2}' \
+	| while read BOARD; do \
+		find ./$$BOARD -not -name 'board.c' -name '*.c' \
+		| awk -F'[/\.]' '{print $$4}' \
+		| while read LAYOUT; do \
+			echo "BOARD=$${BOARD} LAYOUT=$${LAYOUT}"; \
+		done; \
+	done
 
 # Include the dependency files.
 -include $(shell mkdir .dep 2>/dev/null) $(wildcard .dep/*)
 
 .PHONY : build hex eep end clean
+.SILENT: show_layouts
