@@ -160,8 +160,8 @@ end:
 clean: end
 	@echo
 	@echo Cleaning everything:
-	find . -not -name 'firmwares/*' -name '*.eep' -delete
-	find . -not -name 'firmwares/*' -name '*.hex' -delete
+	find . -not -path './firmwares/*' -name '*.eep' -delete
+	find . -not -path './firmwares/*' -name '*.hex' -delete
 
 show_layouts:
 	find . -name board.h | awk -F/ '{print $$2}' \
