@@ -141,21 +141,37 @@ build: avr_keyboard.hex avr_keyboard.eep end
 %.o : %.c
 	@echo
 	@echo Compiling C: $<
-	avr-gcc -c $(ALL_CFLAGS) $< -o $@ 
+	avr-gcc -c $(ALL_CFLAGS) $< -o $@
 
-end: 
+end:
 	@echo
-	find . -regextype posix-awk -regex \
-		"(.*\.cof|.*\.elf|.*\.map|.*\.sym|.*\.lss|.*\.o|.*\.lst|.*\.s|.*\.d|.*\.i)" \
-		-exec rm {} +
+	find . -name '*.cof' -delete
+	find . -name '*.elf' -delete
+	find . -name '*.map' -delete
+	find . -name '*.sym' -delete
+	find . -name '*.lss' -delete
+	find . -name '*.o' -delete
+	find . -name '*.lst' -delete
+	find . -name '*.s' -delete
+	find . -name '*.d' -delete
+	find . -name '*.i' -delete
 	rm -rf .dep
 
 clean:
 	@echo
 	@echo Cleaning everything:
-	find . -maxdepth 1 -regextype posix-awk -regex \
-	        "(.*\.hex|.*\.eep|.*\.cof|.*\.elf|.*\.map|.*\.sym|.*\.lss|.*\.o|.*\.lst|.*\.s|.*\.d|.*\.i)" \
-		-exec rm {} +
+	find . -name '*.cof' -delete
+	find . -name '*.elf' -delete
+	find . -name '*.map' -delete
+	find . -name '*.sym' -delete
+	find . -name '*.lss' -delete
+	find . -name '*.o' -delete
+	find . -name '*.lst' -delete
+	find . -name '*.s' -delete
+	find . -name '*.d' -delete
+	find . -name '*.i' -delete
+	find . -name '*.eep' -delete
+	find . -name '*.hex' -delete
 	rm -rf .dep
 
 # Include the dependency files.
