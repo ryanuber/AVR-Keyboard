@@ -283,7 +283,6 @@ void usb_debug_flush_output(void);	// immediately transmit any buffered output
 
 #define KEY_RESERVED4           232-65535
 
-
 // Everything below this point is only intended for usb_serial.c
 //#ifdef USB_SERIAL_PRIVATE_INCLUDE
 #include <avr/io.h>
